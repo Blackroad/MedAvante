@@ -8,6 +8,9 @@ class SubjectHelper:
 
     def add_new_subject(self,Subjects):
         wd = self.app.wd
+        self.app.navigation.open_dashboard()
+        self.app.navigation.select_study('pharma - Dev R Study')
+        self.app.navigation.open_new_subject_screen()
         self.fill_subject_fields(Subjects)
 
 
@@ -15,7 +18,6 @@ class SubjectHelper:
     def fill_subject_fields(self, Subjects):
         wd = self.app.wd
         self.change_field_value("screeningNum", Subjects.screening)
-        self.change_field_value("temporaryId", Subjects.temporary_id)
         self.consent_to_record()
         self.language()
         wd.find_element_by_xpath("//div[@class='editing-controls']//span[@class='icon-small icon-save']").click()
@@ -30,12 +32,12 @@ class SubjectHelper:
 
     def consent_to_record(self):
         wd = self.app.wd
-        wd.find_element_by_xpath("//div[@class='row collapsed-row']//button ").click()
+        wd.find_element_by_xpath("//div[@data-display-value='selectedConsentToRecord']//span[@class='caret'][2]").click()
         wd.find_element_by_xpath("//div[@class='dropdown-menu']//li/span[text()='  Yes']").click()
 
     def language(self):
         wd = self.app.wd
-        wd.find_element_by_xpath("//div[@class='value col-xs-15']//button ").click()
+        wd.find_element_by_xpath("//div[@data-select-action='cultureChanged']//span[@class='caret'][2] ").click()
         wd.find_element_by_xpath("//div[@class='dropdown-menu']//li/span[text()='  English (US)']").click()
 
 
