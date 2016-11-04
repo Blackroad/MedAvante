@@ -1,0 +1,9 @@
+{
+  "web": {
+    "baseURL":"https://portaldev.medavante.net",
+  "username":"test_ci1",
+  "password":"#2Pencil"
+
+  }
+
+}
