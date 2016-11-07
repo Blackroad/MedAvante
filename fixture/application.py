@@ -2,6 +2,7 @@ from selenium import webdriver
 from fixture.session import SessionHelper
 from fixture.navigation import NavigationHelper
 from fixture.subjects import SubjectHelper
+from fixture.assertation import AssertationHelper
 
 
 class Application:
@@ -19,6 +20,7 @@ class Application:
         self.navigation = NavigationHelper(self)
         self.subject = SubjectHelper(self)
         self.base_url = base_url
+        self.assertation = AssertationHelper(self)
 
 
 
