@@ -14,7 +14,7 @@ class NavigationHelper:
         wd = self.app.wd
         if len(wd.find_elements_by_xpath('//*[@class="dashboard-tile root-filter"]'))== 0:
             wd.find_element_by_xpath('//*[@class="btn-group ng-isolate-scope"]').click()
-            wd.find_element_by_xpath("//div[@class='dropdown-menu']//li//span[text()='  %s']" %study_name).click()
+            wd.find_element_by_xpath("//div[@class='dropdown-menu']//li//span[text()='  %s']" % study_name).click()
             self.wait("//a[@class='dashboard-tile root-filter']/span[text()='Subjects']")
         self.open_subject_list()
 
@@ -25,8 +25,9 @@ class NavigationHelper:
 
     def open_new_subject_screen(self):
         wd = self.app.wd
+        site = self.app.config['study']
         wd.find_element_by_xpath("//*[@class='icon-small icon-add']").click()
-        wd.find_element_by_xpath("//*[@class='dropdown-menu inline-dropdown']/li/a[text()='1123 - Dan Danov']").click()
+        wd.find_element_by_xpath("//*[@class='dropdown-menu inline-dropdown']/li/a[text()='%s']" % site['site1']).click()
         self.wait("//div[@id='page-title']//h1")
 
     def wait(self, elem_path, url_string = None):

@@ -3,9 +3,9 @@ class AssertationHelper:
         self.app = app
 
 
-    def element_present(self, dom_element = None,sub_dom_element = None, class_type=None, class_name=None):
+    def element_present(self, xpath):
         wd = self.app.wd
-        if not dom_element and sub_dom_element and class_type and class_name is None:
-            if wd.find.element_by_xpath("//%s//%s[@%s='%s']" % dom_element, sub_dom_element, class_type, class_name):
-                return True
+        try:
+            wd.find.element_by_xpath(xpath)
+        except:
             return False

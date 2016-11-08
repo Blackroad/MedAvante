@@ -4,6 +4,12 @@
   "username":"test_ci1",
   "password":"#2Pencil"
 
+  },
+
+  "study":{
+      "study1":"Reli - ReliStudy",
+      "site1":"z52 - Brian One",
+      "study2":" "
   }
 
 }

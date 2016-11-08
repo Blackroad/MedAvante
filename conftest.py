@@ -15,16 +15,21 @@ def load_config(file):
             target = json.load(opened_file)
     return target
 
-@pytest.fixture
-def app(request):
+@pytest.fixture(scope="session")
+def config(request):
+    return load_config(request.config.getoption("--target"))
+
+
+
+@pytest.fixture()
+def app(request, config):
     global fixture
     browser = request.config.getoption("--browser")
-    web_config = load_config(request.config.getoption("--target"))['web']
     if fixture is None or not fixture.is_valid():
-        fixture = Application(browser= browser, base_url=web_config["baseURL"])
-    fixture.session.ensure_login(username=web_config["username"],password=web_config['password'])
-    return fixture
+        fixture = Application(browser= browser, config = config)
+    fixture.session.ensure_login(username=config['web']["username"],password=config['web']["password"])
 
+    return fixture
 
 @pytest.fixture(scope="session", autouse=True)
 def stop(request):
@@ -35,15 +40,10 @@ def stop(request):
     return fixture
 
 
-@pytest.fixture
-def check_ui(request):
-    return request.config.getoption('--check_ui')
-
-
 def pytest_addoption(parser):
     parser.addoption ("--browser", action='store', default='chrome')
     parser.addoption("--target", action='store', default='target.json')
-    parser.addoption('--check_ui', action = 'store_true')
+
 
 
 

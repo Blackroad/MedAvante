@@ -7,7 +7,7 @@ from fixture.assertation import AssertationHelper
 
 class Application:
 
-    def __init__(self, browser, base_url):
+    def __init__(self, browser, config):
         if browser == "firefox":
             self.wd = webdriver.Firefox()
         elif browser == "chrome":
@@ -19,15 +19,13 @@ class Application:
         self.session = SessionHelper(self)
         self.navigation = NavigationHelper(self)
         self.subject = SubjectHelper(self)
-        self.base_url = base_url
         self.assertation = AssertationHelper(self)
-
-
+        self.config = config
+        self.base_url = config['web']['baseURL']
 
     def open_home_page(self):
         wd = self.wd
-        if not (wd.current_url.endswith("addressbook/") and len(wd.find_elements_by_xpath("maintable")) > 0):
-            wd.get(self.base_url)
+        wd.get(self.base_url)
 
     def destroy(self):
         self.wd.quit()

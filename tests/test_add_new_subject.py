@@ -1,11 +1,11 @@
 from model.subjects_model import Subjects
+from generator.sub_name_generator import random_string
 
 def test_add_subject(app):
-    subject = Subjects(screening='21455')
+    subject = Subjects(screening=random_string('name',8,1,1))
     app.subject.add_new_subject(subject)
-    assert app.wd.find_element_by_xpath("//div//a[@title='Edit']")
-    assert app.wd.find_element_by_xpath("//div//a/span[@class='icon-small icon-delete']")
-    assert app.wd.find_element_by_xpath("//div//a[@title='Add']")
+    assert app.assertation.element_present("//div/a[@class='circle-button btn btn-white']/span[@class='icon-small icon-add']") == False
+
 
 
 
